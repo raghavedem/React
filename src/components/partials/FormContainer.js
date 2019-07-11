@@ -1,8 +1,9 @@
 import React, {Component} from 'react';  
-import CheckboxOrRadioGroup from './Form_Elements/CheckboxOrRadioGroup';  
-import SingleInput from './Form_Elements/SingleInput';  
-import TextArea from './Form_Elements/TextArea';  
-import Select from './Form_Elements/Select';
+import CheckboxOrRadioGroup from './FormElements/CheckboxOrRadioGroup';  
+import SingleInput from './FormElements/SingleInput';  
+import TextArea from './FormElements/TextArea';  
+import Select from './FormElements/Select';
+import Checkbox from './FormElements/Checkbox';
 
 class FormContainer extends Component {  
   constructor(props) {
@@ -18,14 +19,7 @@ class FormContainer extends Component {
       currentPetCount: 0,
       description: ''
     };
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleClearForm = this.handleClearForm.bind(this);
-    this.handleFullNameChange = this.handleFullNameChange.bind(this);
-    this.handleCurrentPetCountChange = this.handleCurrentPetCountChange.bind(this);
-    this.handleAgeRangeSelect = this.handleAgeRangeSelect.bind(this);
-    this.handlePetSelection = this.handlePetSelection.bind(this);
-    this.handleSiblingsSelection = this.handleSiblingsSelection.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+  
   }
 //   componentDidMount() {
 //     // simulating a call to retrieve user data
@@ -46,16 +40,16 @@ class FormContainer extends Component {
 //         });
 //       });
 //   }
-  handleFullNameChange(e) {
+  handleFullNameChange = (e) => {
     this.setState({ ownerName: e.target.value });
   }
-  handleCurrentPetCountChange(e) {
+  handleCurrentPetCountChange = (e) => {
     this.setState({ currentPetCount: e.target.value });
   }
-  handleAgeRangeSelect(e) {
+  handleAgeRangeSelect = (e) => {
     this.setState({ ownerAgeRangeSelection: e.target.value });
   }
-  handlePetSelection(e) {
+  handlePetSelection = (e) => {
     const newSelection = e.target.value;
     let newSelectionArray;
     if(this.state.selectedPets.indexOf(newSelection) > -1) {
@@ -65,13 +59,14 @@ class FormContainer extends Component {
     }
     this.setState({ selectedPets: newSelectionArray });
   }
-  handleSiblingsSelection(e) {
+  handleSiblingsSelection = (e) => {
+    console.log(e.target)
     this.setState({ siblingSelection: [e.target.value] });
   }
-  handleDescriptionChange(e) {
+  handleDescriptionChange = (e) => {
     this.setState({ description: e.target.value });
   }
-  handleClearForm(e) {
+  handleClearForm = (e) => {
     e.preventDefault();
     this.setState({
       ownerName: '',
@@ -82,7 +77,7 @@ class FormContainer extends Component {
       description: ''
     });
   }
-  handleFormSubmit(e) {
+  handleFormSubmit = (e) => {
     e.preventDefault();
 
     const formPayload = {
@@ -143,6 +138,14 @@ class FormContainer extends Component {
           name={'currentPetInfo'}
           controlFunc={this.handleDescriptionChange}
           placeholder={'Please be thorough in your descriptions'} />
+        <Checkbox
+            type={'radio'}
+            setName = "siblings1"
+            options={this.state.siblingOptions}
+            selectedOptions={this.state.siblingSelection}
+            controlFunc={this.handleSiblingsSelection}
+            title="this is the custo  m checkbox"
+        />
         <input
           type="submit"
           className="btn btn-primary float-right"
